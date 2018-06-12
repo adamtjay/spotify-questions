@@ -8,19 +8,13 @@ function decodeString(s) {
 
   // Get nested coefficient (if exists -- * this will be used as the nested check);
   let innercoefficient = parsed[1].replace(/\D+/g, '');
-  innercoefficient
-  ? console.log('inner coefficient exists: ', innercoefficient[0])
-  : console.log('nested string does not exist')
-
-
 
   if (!innercoefficient) {
     // No nested string exists; decode normally
     decodedstr = parsed[1].repeat(coefficient);
   } else {
     // Nested string exists; combine the inner parts together, and then decode
-
-    // Get nested string (if exists)
+      console.log('inner coefficient exists: ', innercoefficient);
     let innerstr = s.match(/\[[^[\]]*\]/);
     let innerparsed = innerstr[0].match(/\[(.*?)\]/);
       console.log('inner parsed: ', innerparsed[1]);
