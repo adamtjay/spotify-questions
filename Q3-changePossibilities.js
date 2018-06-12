@@ -13,10 +13,21 @@ function changePossibilities(amount, denominations) {
             combos.push(combo);
           }
         }
-      // check if any other denominations equal that complement #
+      // double-nested check to see if any other denominations equal that complement #
       denominations.forEach(subdenom => {
-        
+          denominations.forEach(subsubdenom => {
+            if (subdenom + subsubdenom === complement) {
+              // another combo equaling to that same complement # is available
+              let combo = [denom, subdenom, subsubdenom].sort().toString();
+              // if combo doesn't already exist in arr, add it
+              if (combos.indexOf(combo) === -1) {
+                combos.push(combo);
+              }
+            }
+          })
       })
+
+      
 
     })
 
