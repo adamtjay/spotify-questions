@@ -12,7 +12,7 @@ function sortByString(s,t) {
 
   for (let char of t) {
     if (check[char]) {
-      // Concat to new string based on number of times the letter appeared
+      // Concat onto the new string based on number of times the letter appeared
       newstring += char.repeat(check[char]);
     }
   }
