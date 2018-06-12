@@ -1,16 +1,19 @@
-let encodedstr = '4[testing123]';
+function decodeString(s) {
+  let coefficient = s.match(/^[^\[,]*/);
+  let parsed = s.match(/\[(.*?)\]/);
 
-let coefficient = encodedstr.match(/^[^\[,]*/);
+  let decodedstr = parsed[1].repeat(coefficient);
 
-let parsed = encodedstr.match(/\[(.*?)\]/);
+  // console.log(decodedstr);
+  console.log('coefficient: ', coefficient[0]);
+  console.log('parsed str: ', parsed[1]);
 
+  let inner = s.match(/\[[^[\]]*\]/);
+  let innerparsed = inner[0].match(/\[(.*?)\]/);
+  console.log('inner parsed: ', innerparsed[1])
 
-let decodedstr = parsed[1].repeat(coefficient);
+  return decodedstr;
+}
 
-
-console.log(decodedstr);
-
-
-// console.log(coefficient[0]);
-//
-// console.log(parsed[1]);
+// decodeString('4[ab]');
+decodeString('2[b3[a]]');
