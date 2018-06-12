@@ -27,12 +27,28 @@ function changePossibilities(amount, denominations) {
           })
       })
 
-      
+      // check if amount is divisible by the # (4/1 = 4 ==> [1,1,1,1], or 10/2 = 5 ==> [2,2,2,2,2], etc)
+      let remainder = amount / denom;
+      // verify if remainder is a whole number
+      if (remainder % 1 === 0) {
+          // create combo using the remainder and denom (ex: 1,1,1,1)
+          let comboarr =[];
+          for (let i=0; i<remainder; i++) {
+              comboarr.push(denom);
+          }
+          let combo = comboarr.toString();
+          // if combo doesn't already exist in arr, add it
+          if (combos.indexOf(combo) === -1) {
+            combos.push(combo);
+          }
+      }
 
-    })
+    }) // end main forEach
 
     console.log('Combos: ', combos);
     console.log('# of combos: ', combos.length)
+
+    return combos.length;
 }
 
 changePossibilities(4, [1,2,3]);
