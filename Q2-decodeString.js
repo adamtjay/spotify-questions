@@ -13,15 +13,15 @@ function decodeString(s) {
     // No nested string exists; decode normally
     decodedstr = parsed[1].repeat(coefficient);
   } else {
-    // Nested string exists; combine the inner parts together, and then decode
+    // Nested string exists; need to combine the inner parts together, and then decode
       console.log('inner coefficient exists: ', innercoefficient);
     let innerstr = s.match(/\[[^[\]]*\]/);
     let innerparsed = innerstr[0].match(/\[(.*?)\]/);
       console.log('inner parsed: ', innerparsed[1]);
-    // Get first outer string (if nested exists)
+    // Get first outer string
     let outerparsed = parsed[1].match(/.+?(?=[0-9])/);
       console.log('outer parsed: ', outerparsed[0]);
-
+    // Combining the parts together
     innerdecoded = innerparsed[1].repeat(innercoefficient);
     innerconcat = outerparsed[0] + innerdecoded;
     decodedstr = innerconcat.repeat(coefficient);
