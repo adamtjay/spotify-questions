@@ -1,5 +1,4 @@
 const changePossibilities = (n, denominations) => {
-  let combos = [];
 
   // for each denom, loop 1-through-amount(n)
 
@@ -10,6 +9,7 @@ const changePossibilities = (n, denominations) => {
   // ex: 1x(10) = n, save combo
   //ex: 1x(8) < n, so subloop... 8+1 < n, still less... 8+2 = n (go to above case)
 
+  let combos = [];
   let sum = 0;
 
   denominations.forEach(denom => {
@@ -34,8 +34,9 @@ const changePossibilities = (n, denominations) => {
           if (sum < n) {
             denominations.forEach(subdenom => {
                 let newsum = sum + subdenom;
+                // *** if LESS than n, need to recursively do it over again
                 if (newsum === n) {
-                    console.log('match: ', sum, subdenom)
+                      // console.log('match: ', sum, subdenom)
                     let comboarr =[];
                     // repeat the # by the amount of times it was multiplied (ex: 1x(8)+2 => 1, 8 times)
                     for (let x=0; x<i; x++) {
