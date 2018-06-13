@@ -1,73 +1,88 @@
-const changePossibilities = (n, denominations) => {
+let value = 9;
+let denominations = [1,2,3,4,5];
 
-  // for each denom, loop 1-through-amount(n)
+let result = [];
 
-  // if sum < amount(n), subloop again (adding each denom)
-  // if sum === amount(n), save the combo, break loop
-  // if sum > amount(n), break loop
+let originalArray = [];
 
-  // ex: 1x(10) = n, save combo
-  //ex: 1x(8) < n, so subloop... 8+1 < n, still less... 8+2 = n (go to above case)
+for(let i = denominations.length - 1; i >= 0; i = i - 1) {
+  getCombinations(value, denominations, result, denominations[i], originalArray.splice(), 0, false)
+  }
 
-  let combos = [];
-  let sum = 0;
+let filteredArray = [];
 
-  denominations.forEach(denom => {
+for(let xx = 0; xx<result.length; xx = xx+1) {
+  // result[xx] = result[xx][0].sort()
+  filteredArray[xx] = result[xx].toString()
+  }
 
-      for (let i=1; i<n+1; i++) {
-          sum = denom * i;
+filteredArray = filteredArray.filter(function(item, pos) {
+    return filteredArray.indexOf(item)== pos;
+  }).sort();
 
-          // if sum === amount(n), save the combo, break loop
-          if (sum === n) {
-              let comboarr =[];
-              for (let x=0; x<i; x++) {
-                  comboarr.push(denom);
-              }
-              let combo = comboarr.sort().toString();
-              // if combo doesn't already exist in arr, add it
-              if (combos.indexOf(combo) === -1) {
-                combos.push(combo);
-              }
-    // **** need to check for other combos that form that same complement ****
-
-          }
-
-          // if sum < amount(n), subloop again (adding each denom)
-          if (sum < n) {
-            denominations.forEach(subdenom => {
-                let newsum = sum + subdenom;
-    // *** if LESS than n, need to recursively do it over again ***
-                if (newsum === n) {
-                      // console.log('match: ', sum, subdenom)
-                    let comboarr =[];
-                    // repeat the # by the amount of times it was multiplied (ex: 1x(8)+2 => 1, 8 times)
-                    for (let x=0; x<i; x++) {
-                        comboarr.push(denom);
-                    }
-                    comboarr.push(subdenom);
-                    let combo = comboarr.sort().toString();
-                    // if combo doesn't already exist in arr, add it
-                    if (combos.indexOf(combo) === -1) {
-                      combos.push(combo);
-                    }
-                  }
-              })
-          }
-
-          // if sum < amount(n), subloop again (adding each denom)
-          if (sum > n) {
-            break;
-          }
+console.log('# of Combos: ', filteredArray.length)
+console.log('Combos: ', filteredArray)
 
 
+
+function getCombinations(totalValue, denominations, result, root, originalArray, pos, repeat)
+  {
+
+  let tempSum = 0;
+  let tempResults = [];
+  let i = denominations.indexOf(root);
+  let f = denominations.indexOf(root);
+
+  while(i >= 0)  {
+    if(tempSum === 0) {
+      tempSum = tempSum + root;
+      tempResults.push(root);
+    }
+
+    tempSum = tempSum + denominations[f];
+    tempResults.push(denominations[f]);
+
+    if(tempSum > totalValue)  {
+      tempSum = tempSum - denominations[f];
+      tempResults.pop();
+      f = f-1
+      continue;
+    }
+
+    f = denominations.indexOf(root) - i
+
+    if(tempSum === totalValue) {
+
+      if(originalArray) {
+        originalArray.splice(pos, 1)
+
+        for(let y = 0; y < tempResults.length; y = y+1) {
+          originalArray.splice(1, 0, tempResults[y])
+        }
+
+        result.push(new Array(originalArray.slice()));
+        tempResults = originalArray;
+      }
+      else {
+        result.push(new Array(tempResults.slice()));
       }
 
-    })
-    console.log('Combos: ', combos);
-    console.log('# of Combos: ', combos.length);
+      for(let x = 1; x < tempResults.length; x = x + 1) {
+        if(tempResults[x] !== 1) {
+          getCombinations(tempResults[x], denominations, result, denominations[denominations.indexOf(tempResults[x]) - 1],tempResults, x, true)
+        }
+      }
 
-    return combos.length;
+      originalArray = []
+      tempResults = []
+      tempSum = 0
+
+      if(repeat) {
+        break;
+      }
+
+      i = i - 1
+
+    }
+  }
 }
-
-// changePossibilities(4, [1,2,3]);
-changePossibilities(10, [1,2,3,4,5]);
