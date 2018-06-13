@@ -19,12 +19,11 @@ const changePossibilities = (n, denominations) => {
 
           // if sum === amount(n), save the combo, break loop
           if (sum === n) {
-              console.log(denom, i);
               let comboarr =[];
               for (let x=0; x<i; x++) {
                   comboarr.push(denom);
               }
-              let combo = comboarr.toString();
+              let combo = comboarr.sort().toString();
               // if combo doesn't already exist in arr, add it
               if (combos.indexOf(combo) === -1) {
                 combos.push(combo);
@@ -34,12 +33,22 @@ const changePossibilities = (n, denominations) => {
           // if sum < amount(n), subloop again (adding each denom)
           if (sum < n) {
             denominations.forEach(subdenom => {
-              let newsum = sum + subdenom;
-              if (newsum === n) {
-                console.log('match: ', sum, subdenom)
-
-              }
-            })
+                let newsum = sum + subdenom;
+                if (newsum === n) {
+                    console.log('match: ', sum, subdenom)
+                    let comboarr =[];
+                    // repeat the # by the amount of times it was multiplied (ex: 1x(8)+2 => 1, 8 times)
+                    for (let x=0; x<i; x++) {
+                        comboarr.push(denom);
+                    }
+                    comboarr.push(subdenom);
+                    let combo = comboarr.sort().toString();
+                    // if combo doesn't already exist in arr, add it
+                    if (combos.indexOf(combo) === -1) {
+                      combos.push(combo);
+                    }
+                  }
+              })
           }
 
           // if sum < amount(n), subloop again (adding each denom)
@@ -54,5 +63,5 @@ const changePossibilities = (n, denominations) => {
     console.log('Combos: ', combos);
 }
 
-changePossibilities(8, [1,2,3]);
+changePossibilities(10, [1,2,3,4,5]);
 // changePossibilities(4, [1,2,3]);
