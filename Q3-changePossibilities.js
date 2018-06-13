@@ -28,13 +28,15 @@ const changePossibilities = (n, denominations) => {
               if (combos.indexOf(combo) === -1) {
                 combos.push(combo);
               }
+    // **** need to check for other combos that form that same complement ****
+
           }
 
           // if sum < amount(n), subloop again (adding each denom)
           if (sum < n) {
             denominations.forEach(subdenom => {
                 let newsum = sum + subdenom;
-                // *** if LESS than n, need to recursively do it over again
+    // *** if LESS than n, need to recursively do it over again ***
                 if (newsum === n) {
                       // console.log('match: ', sum, subdenom)
                     let comboarr =[];
@@ -63,9 +65,9 @@ const changePossibilities = (n, denominations) => {
     })
     console.log('Combos: ', combos);
     console.log('# of Combos: ', combos.length);
-    
+
     return combos.length;
 }
 
-changePossibilities(4, [1,2,3]);
-// changePossibilities(10, [1,2,3,4,5]);
+// changePossibilities(4, [1,2,3]);
+changePossibilities(10, [1,2,3,4,5]);
