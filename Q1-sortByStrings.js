@@ -4,9 +4,9 @@ function sortByString(s,t) {
 
   for (let char of s) {
     !check[char]
-      // If char does not exist already in arr, create a key-value of 1vfor it
+      // If char does not exist already in the hash array, create a key-value showing that it appeared 1 time
       ? check[char] = 1
-      // If char already has an existing key-value in the check arr, increment that # to account for duplicate letters
+      // If it is already existing, increment its value by 1 to account for duplicate letters
       : check[char]++
   }
 
