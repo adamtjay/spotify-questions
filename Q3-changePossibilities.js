@@ -1,54 +1,58 @@
-function changePossibilities(amount, denominations) {
-    combos = [];
+const changePossibilities = (n, denominations) => {
+  let combos = [];
 
-    denominations.forEach(denom => {
-      // get #'s complement
-      let complement = amount - denom;
-      // check if complement exists in denominations arr
-      if (denominations.indexOf(complement) > -1) {
-          // create combo as values, sorted (to avoid duplicates), into a string (for indexOf check to work)
-          let combo = [denom, complement].sort().toString();
-          // if combo isn't already in the combos array, add it
-          if (combos.indexOf(combo) === -1) {
-            combos.push(combo);
-          }
-        }
-      // double-nested check to see if any other denominations equal that complement #
-      denominations.forEach(subdenom => {
-          denominations.forEach(subsubdenom => {
-            if (subdenom + subsubdenom === complement) {
-              // another combo equaling to that same complement # is available
-              let combo = [denom, subdenom, subsubdenom].sort().toString();
+  // for each denom, loop 1-through-amount(n)
+
+  // if sum < amount(n), subloop again (adding each denom)
+  // if sum === amount(n), save the combo, break loop
+  // if sum > amount(n), break loop
+
+  // ex: 1x(10) = n, save combo
+  //ex: 1x(8) < n, so subloop... 8+1 < n, still less... 8+2 = n (go to above case)
+
+  let sum = 0;
+
+  denominations.forEach(denom => {
+
+      for (let i=1; i<n+1; i++) {
+          sum = denom * i;
+
+          // if sum === amount(n), save the combo, break loop
+          if (sum === n) {
+              console.log(denom, i);
+              let comboarr =[];
+              for (let x=0; x<i; x++) {
+                  comboarr.push(denom);
+              }
+              let combo = comboarr.toString();
               // if combo doesn't already exist in arr, add it
               if (combos.indexOf(combo) === -1) {
                 combos.push(combo);
               }
-            }
-          })
-      })
+          }
 
-      // check if amount is divisible by the # (4/1 = 4 ==> [1,1,1,1], or 10/2 = 5 ==> [2,2,2,2,2], etc)
-      let remainder = amount / denom;
-      // verify if remainder is a whole number
-      if (remainder % 1 === 0) {
-          // create combo using the remainder and denom (ex: 1,1,1,1)
-          let comboarr =[];
-          for (let i=0; i<remainder; i++) {
-              comboarr.push(denom);
+          // if sum < amount(n), subloop again (adding each denom)
+          if (sum < n) {
+            denominations.forEach(subdenom => {
+              let newsum = sum + subdenom;
+              if (newsum === n) {
+                console.log('match: ', sum, subdenom)
+
+              }
+            })
           }
-          let combo = comboarr.toString();
-          // if combo doesn't already exist in arr, add it
-          if (combos.indexOf(combo) === -1) {
-            combos.push(combo);
+
+          // if sum < amount(n), subloop again (adding each denom)
+          if (sum > n) {
+            break;
           }
+
+
       }
 
-    }) // end main forEach
-
+    })
     console.log('Combos: ', combos);
-    console.log('# of combos: ', combos.length)
-
-    return combos.length;
 }
 
-changePossibilities(4, [1,2,3]);
+changePossibilities(8, [1,2,3]);
+// changePossibilities(4, [1,2,3]);
