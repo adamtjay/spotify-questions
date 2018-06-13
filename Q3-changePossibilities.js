@@ -62,7 +62,10 @@ const changePossibilities = (n, denominations) => {
 
     })
     console.log('Combos: ', combos);
+    console.log('# of Combos: ', combos.length);
+    
+    return combos.length;
 }
 
-changePossibilities(10, [1,2,3,4,5]);
-// changePossibilities(4, [1,2,3]);
+changePossibilities(4, [1,2,3]);
+// changePossibilities(10, [1,2,3,4,5]);
