@@ -1,4 +1,4 @@
-let value = 8;
+let value = 10;
 let denominations = [1,2,3];
 
 let result = [];
@@ -17,23 +17,21 @@ for(let xx = 0; xx<result.length; xx = xx+1) {
   filteredArray[xx] = result[xx].toString()
   }
 
-filteredArray = filteredArray.filter(function(item, pos) {
-    return filteredArray.indexOf(item)== pos;
-  }).sort();
-
   let resultSet = []
 
   filteredArray.forEach(result => {
+    // sort the contents of the result strings
     sortedres = result.split(',').sort().join()
-    resultSet.push(sortedres)
+    // if there are no duplicates in resultset, add combo to results
+    if (resultSet.indexOf(sortedres) === -1) {
+      resultSet.push(sortedres)
+    }
   })
 
   resultSet.sort()
 
 console.log('* # of Combos: ', resultSet.length)
 console.log('* Combos: \n', resultSet)
-
-// return resultSet.length;
 
 
 
