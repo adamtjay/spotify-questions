@@ -5,6 +5,7 @@ let result = [];
 
 let originalArray = [];
 
+function getAllDenominations(value, denominations) {
 // decreasing loop through denominations, call main function for each, using as the root
 for(let i = denominations.length - 1; i >= 0; i = i - 1) {
   // start function call with root, no recursive repeats
@@ -33,7 +34,11 @@ for(let xx = 0; xx<result.length; xx = xx+1) {
 console.log('* # of Combos: ', resultSet.length)
 console.log('* Combos: \n', resultSet)
 
+return resultSet.length;
 
+}
+
+getAllDenominations(value, denominations);
 
 function getCombinations(totalValue, denominations, result, root, originalArray, pos, repeat)
   {
