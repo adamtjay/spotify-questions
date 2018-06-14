@@ -6,40 +6,43 @@ let result = [];
 let originalArray = [];
 
 function getAllDenominations(value, denominations) {
-// decreasing loop through denominations, call main function for each, using as the root
-for(let i = denominations.length - 1; i >= 0; i = i - 1) {
-  // start function call with root, no recursive repeats
-  getCombinations(value, denominations, result, denominations[i], originalArray.splice(), 0, false)
-  }
 
-let filteredArray = [];
-
-for(let xx = 0; xx<result.length; xx = xx+1) {
-  filteredArray[xx] = result[xx].toString()
-  }
-
-  let resultSet = []
-
-  filteredArray.forEach(result => {
-    // sort the contents of the result strings
-    sortedres = result.split(',').sort().join()
-    // if there are no duplicates in resultset, add combo to results
-    if (resultSet.indexOf(sortedres) === -1) {
-      resultSet.push(sortedres)
+  // decreasing loop through denominations, call main function for each, using as the root
+  for(let i = denominations.length - 1; i >= 0; i = i - 1) {
+    // start function call with root, no recursive repeats
+    getCombinations(value, denominations, result, denominations[i], originalArray.splice(), 0, false)
     }
-  })
 
-  resultSet.sort()
+  let filteredArray = [];
 
-console.log('* # of Combos: ', resultSet.length)
-console.log('* Combos: \n', resultSet)
+  for(let xx = 0; xx<result.length; xx = xx+1) {
+    filteredArray[xx] = result[xx].toString()
+    }
 
-return resultSet.length;
+    let resultSet = []
+
+    filteredArray.forEach(result => {
+      // sort the contents of the result strings
+      sortedres = result.split(',').sort().join()
+      // if there are no duplicates in resultset, add combo to results
+      if (resultSet.indexOf(sortedres) === -1) {
+        resultSet.push(sortedres)
+      }
+    })
+
+    resultSet.sort()
+
+  console.log('* # of Combos: ', resultSet.length)
+  console.log('* Combos: \n', resultSet)
+
+  return resultSet.length;
 
 }
 
+// execute main function which runs the recursive function
 getAllDenominations(value, denominations);
 
+// recursive function which collects all combinations based on value amount & denominations
 function getCombinations(totalValue, denominations, result, root, originalArray, pos, repeat)
   {
 
