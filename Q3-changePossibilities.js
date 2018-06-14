@@ -9,7 +9,7 @@ let denominations = [1,2,3,4,5];
 let result = [];
 let originalArray = [];
 
-function getAllDenominations(value, denominations) {
+function changePossibilities(value, denominations) {
 
     // decreasing loop through denominations, call main function for each, using as the root
     for(let i = denominations.length - 1; i >= 0; i = i - 1) {
@@ -44,7 +44,7 @@ function getAllDenominations(value, denominations) {
   }
 
 // execute main function, which runs the recursive function
-getAllDenominations(value, denominations);
+changePossibilities(value, denominations);
 
 
 // recursive function which collects all combinations based on value amount & denominations
