@@ -1,5 +1,5 @@
-let value = 9;
-let denominations = [1,2,3,4,5];
+let value = 8;
+let denominations = [1,2,3];
 
 let result = [];
 
@@ -12,7 +12,6 @@ for(let i = denominations.length - 1; i >= 0; i = i - 1) {
 let filteredArray = [];
 
 for(let xx = 0; xx<result.length; xx = xx+1) {
-  // result[xx] = result[xx][0].sort()
   filteredArray[xx] = result[xx].toString()
   }
 
@@ -20,8 +19,19 @@ filteredArray = filteredArray.filter(function(item, pos) {
     return filteredArray.indexOf(item)== pos;
   }).sort();
 
-console.log('# of Combos: ', filteredArray.length)
-console.log('Combos: ', filteredArray)
+  let resultSet = []
+
+  filteredArray.forEach(result => {
+    sortedres = result.split(',').sort().join()
+    resultSet.push(sortedres)
+  })
+
+  resultSet.sort()
+
+console.log('* # of Combos: ', resultSet.length)
+console.log('* Combos: \n', resultSet)
+
+return resultSet.length;
 
 
 
@@ -68,7 +78,7 @@ function getCombinations(totalValue, denominations, result, root, originalArray,
       }
 
       for(let x = 1; x < tempResults.length; x = x + 1) {
-        if(tempResults[x] !== 1) {
+        if(tempResults[x] != 1) {
           getCombinations(tempResults[x], denominations, result, denominations[denominations.indexOf(tempResults[x]) - 1],tempResults, x, true)
         }
       }
