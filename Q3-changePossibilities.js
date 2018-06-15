@@ -3,7 +3,7 @@
   - Given an amount & an array of denominations, calculate all possible combinations
 */
 
-let value = 10;
+let value = 15;
 let denominations = [1,2,3,4,5];
 
 let result = [];
@@ -37,8 +37,8 @@ function changePossibilities(value, denominations) {
 
     resultSet.sort()
 
-    console.log('* # of Combos: ', resultSet.length)
     console.log('* Combos: \n', resultSet)
+    console.log('* # of Combos: ', resultSet.length)
 
     return resultSet.length;
   }
